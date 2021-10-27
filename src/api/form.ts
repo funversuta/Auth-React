@@ -9,7 +9,29 @@ import {Form} from '../Interface/types';
   {list1: Form[]}> => axios.get('http://clinic.studio-mind.ru/profile',{
     params:{
     nameId: 'Sometime'}}); */
-
+// return the user data from the session storage
+export const getUser = () => {
+    const userStr = sessionStorage.getItem('user');
+    if (userStr) return JSON.parse(userStr);
+    else return null;
+  }
+   
+  // return the token from the session storage
+  export const getToken = () => {
+    return sessionStorage.getItem('token') || null;
+  }
+   
+  // remove the token and user from the session storage
+  export const removeUserSession = () => {
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('user');
+  }
+   
+  // set the token and user from the session storage
+  export const setUserSession = (token: string, user: any) => {
+    sessionStorage.setItem('token', token);
+    sessionStorage.setItem('user', JSON.stringify(user));
+  }
 
 export const createForm = (data:object): AxiosPromise<Form> => axios.post('http://clinic.studio-mind.ru/register', data);
 
@@ -19,7 +41,7 @@ export const getFormL = (data: object):AxiosPromise => axios.get(`http://clinic.
 
 const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0QG1haWwucnUiLCJpYXQiOjE2MzQyODEzNDEsImV4cCI6MTYzNjg3MzM0MX0.bZLigUvj64cZY6flMkJtOrKenP7CTPpKQES13Vwht7k";
 
-export function saveToken(token: any) {
+/* export function saveToken(token: any) {
   sessionStorage.setItem('accessToken', JSON.stringify(token));
 }
 function getAccessToken(username: any, password: any) {
@@ -45,7 +67,7 @@ function getAccessToken(username: any, password: any) {
       })};
 
       function refreshToken(token: any) {
-        return fetch('http://clinic.studio-mind.ru/login/refreshToken', {
+        return fetch('http://clinic.studio-mind.ru/login/', {
             method: 'POST',
             credentials: 'include',
             headers: {
@@ -94,4 +116,4 @@ function getAccessToken(username: any, password: any) {
       }
   
       return fetch(url, options); // возвращаем изначальную функцию, но уже с валидным токеном в headers
-  }
+  } */

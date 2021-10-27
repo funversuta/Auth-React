@@ -8,7 +8,9 @@ const Header: React.FC = () => {
  
 
     return (
-      <Head>ClinicTrack</Head>
+      <Head>ClinicTrack
+        <div style={{color:'lightgreen',fontWeight: 'bold',fontSize:'40px'}}>.</div>
+        </Head>
       
     )
   }

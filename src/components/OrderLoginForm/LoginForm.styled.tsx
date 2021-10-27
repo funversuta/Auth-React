@@ -1,4 +1,5 @@
 
+
 import styled from 'styled-components';
 
 interface IInput {
@@ -15,8 +16,8 @@ export const Container = styled.form `
    background: white;
     
     box-shadow:
-        0pt 0px 5px white,
-        0px 0px 5px 0px white ;
+        0pt 0px 0px white,
+        0px 0px 0px 0px white ;
     border-radius: 5px;
     padding-bottom: 5px;
    `;
@@ -26,8 +27,9 @@ export const FirstForm = styled.label `
   display:flex;
    flex-direction: column;
    max-width: 400px;
+   margin-left: 50px;
    margin-bottom: 15px;
-   margin-left: 40px;
+   
 
 `;
 
@@ -35,8 +37,7 @@ export const FormControl = styled.label `
    display:flex;
    flex-direction: column;
    max-width: 400px;
-   margin-left: 40px;
- 
+   margin-left: 50px;
    margin-bottom: 15px;
    `;
 
@@ -48,7 +49,10 @@ export const Label = styled.span `
 export const Input = styled.input<IInput> `
    height: 40px;
    padding: 0 20px;
-   border-color: ${({ theme, inputError }) => inputError ? theme.colors.red : theme.colors.SkyBlue};
+   border-radius: 4px;
+   border-color: ${({ theme, inputError }) => {
+   return inputError ? theme.colors.red : theme.colors.SkyBlue;
+}};
    transition: border 0.3s;
    
    outline: none;
@@ -67,9 +71,13 @@ export const Button = styled.button `
    margin-bottom: 10px;
    height: 40px;
    background-color: Cyan;
-   border-radius: 3px;
-   margin-left: 40px;
+   border-radius: 4px;
+   margin-left: 50px;
    border-color: white  ;
+   &:hover,
+   &:focus {
+      outline: none;
+   }
 
 `;
 export const InputError = styled.span `
@@ -86,3 +94,26 @@ export const TextDiv = styled.div `
    margin-bottom: 10px;
 
 ` ; 
+
+export const StyledCheckbox = styled.div`
+  display: inline-block;
+  max-width: 16px;
+
+  height: 16px;
+  background: ${({ theme }) => theme.colors.red};
+  border-radius: 3px;
+  transition: all 150ms;
+`;
+export const LabelCheckbx = styled.label `
+ display: inline-block;
+ margin-top: 5px;
+ 
+ 
+`;
+export const TextCheckBx = styled.span `
+ margin-top: 5px;
+ margin-left: 10px;
+ 
+ 
+ 
+`;
