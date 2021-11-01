@@ -1,5 +1,6 @@
 
 
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 interface IInput {
@@ -7,49 +8,52 @@ interface IInput {
 }
 
 export const Container = styled.form `
-   display: flex; 
-   flex-direction: column;
    position: relative;
-   max-width: 500px;
-   max-height: 700px;
-   margin: 0px auto ;
-   background: white;
+width: 445px;
+max-height: 311px;
+left: 738px;
+top: 320px;
+padding-top: 40px;
+background: #FFFFFF;
+border-radius: 10px;
     
-    box-shadow:
-        0pt 0px 0px white,
-        0px 0px 0px 0px white ;
-    border-radius: 5px;
-    padding-bottom: 5px;
    `;
 
-export const FirstForm = styled.label `
-  margin-top: 30px;
+/* export const FirstForm = styled.label `
+  margin-top: 40px;
   display:flex;
    flex-direction: column;
-   max-width: 400px;
-   margin-left: 50px;
-   margin-bottom: 15px;
    
+   max-width: 365px;
+   margin-left: 40px;
+   margin-bottom: 20px;
+   color:#F5F7FA;
 
-`;
+`; */
 
 export const FormControl = styled.label `
    display:flex;
+   position: relative;
    flex-direction: column;
-   max-width: 400px;
-   margin-left: 50px;
-   margin-bottom: 15px;
+   
+   margin-left: 40px;
+ 
+  
+   
+   color:#F5F7FA;
    `;
 
-export const Label = styled.span `
-    font-size: 14px;
-    margin-bottom: 10px;
-`;
+
 
 export const Input = styled.input<IInput> `
-   height: 40px;
-   padding: 0 20px;
-   border-radius: 4px;
+   height: 50px;
+   padding: 20px;
+   width: 365px;
+   background: #F5F7FA;
+  margin-bottom: 10px;
+border: 1px solid #C9D6F0;
+box-sizing: border-box;
+border-radius: 4px;
    border-color: ${({ theme, inputError }) => {
    return inputError ? theme.colors.red : theme.colors.SkyBlue;
 }};
@@ -65,55 +69,102 @@ export const Input = styled.input<IInput> `
   `;
 
 export const Button = styled.button `
-   width: 400px;
+   
    font-size: 14px;
-   font-weight: bold;
-   margin-bottom: 10px;
-   height: 40px;
-   background-color: Cyan;
+   
+   
+   
+   background-color: #75EBEB;
    border-radius: 4px;
-   margin-left: 50px;
-   border-color: white  ;
+   margin-left: 40px;
+   border-color: #75EBEB  ;
    &:hover,
    &:focus {
       outline: none;
    }
+   
+width: 365px;
+height: 50px;
+
+
+
 
 `;
 export const InputError = styled.span `
+position: relative;
    font-size: 14px;
    color: ${({ theme }) => theme.colors.red};
-   margin-top: 10px;
-
+   top: -10px;
+  margin-top: 6px;
+` ; 
+ 
+export const InputError1 = styled.span `
+position: relative;
+   font-size: 14px;
+   color: ${({ theme }) => theme.colors.red};
+   top: -25px;
+  margin-top: 6px;
 ` ; 
 export const TextDiv = styled.div `
-   font-size: 16px;
+width: 308px;
+height: 17px;
+font-weight: 500;
+font-size: 14px;
+line-height: 120%;
    font-weight: bold;
    margin-left: 40px;
-   margin-top: 5px;
-   margin-bottom: 10px;
-
+   margin-top: 10px;
+   margin-bottom: 40px;
+   padding-bottom: 40px;
 ` ; 
 
-export const StyledCheckbox = styled.div`
-  display: inline-block;
-  max-width: 16px;
+export const DivCheckBx = styled.div `
+position:relative;
+top:-19px;
+`;
 
-  height: 16px;
-  background: ${({ theme }) => theme.colors.red};
-  border-radius: 3px;
-  transition: all 150ms;
-`;
-export const LabelCheckbx = styled.label `
- display: inline-block;
- margin-top: 5px;
- 
- 
-`;
 export const TextCheckBx = styled.span `
- margin-top: 5px;
- margin-left: 10px;
+ position: relative;
+
+left:7px;
+
+
+
+font-style: normal;
+font-weight: normal;
+font-size: 14px;
+line-height: 14px;
+
+color: #000000;
  
+`;
+export const IEye = styled.i `
+position: relative ;
+left: 330px;
+
+top: -40px;
+
+        color: #798BAD;
+
+
+`;
+export const LinkElem = styled(NavLink)`
+// example style
+color: #75EBEB;
+text-decoration: none;
+
+&:hover {
+   color: cyan;
+}
+&.active {
+  color: cyan;
+  text-decoration: none;
+}
+
+`;
+export const SetAcc = styled.span `
+ color: cyan;
+ text-decoration: none;
  
- 
+
 `;

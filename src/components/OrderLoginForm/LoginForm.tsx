@@ -1,5 +1,5 @@
 import React,{ useState} from 'react';
-import { Container, FormControl, Input, Button, InputError, TextDiv,FirstForm, LabelCheckbx, TextCheckBx} from './LoginForm.styled';
+import { Container, FormControl, Input, Button, InputError, TextDiv,  TextCheckBx, IEye, SetAcc, LinkElem, InputError1, DivCheckBx} from './LoginForm.styled';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { NavLink, Redirect, Route } from 'react-router-dom';
 import {  createFormL, setUserSession } from '../../api/form';
@@ -48,6 +48,8 @@ function LoginForm(this: any, props: any) {
     axios.post('http://clinic.studio-mind.ru/login', data).then(response => {
       setLoading(false);
       setUserSession(response.data.token, response.data.user);
+      if (response.data.accessToken) {
+        localStorage.setItem("user", JSON.stringify(response.data));}
       <Redirect to="/Profile" />
       props.history.push('/Profile');
       console.log(response.data);
@@ -83,8 +85,8 @@ function LoginForm(this: any, props: any) {
 
   return (
     <Container onSubmit={handleSubmit(onSubmit)}>
-      <FirstForm>
-        <Input placeholder={'E-mail'} inputError={!!errors.username?.message} {...register('username', {
+      <FormControl>
+        <Input placeholder={'E-mail'} autoComplete={"username"} inputError={!!errors.username?.message} {...register('username', {
           required: 'Объязательное поле',
           pattern: {
             value: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
@@ -92,30 +94,28 @@ function LoginForm(this: any, props: any) {
           }
         })} />
         {errors.username?.message && <InputError>{errors.username.message}</InputError>}
-      </FirstForm>
+      </FormControl>
       <FormControl>
-        <Input placeholder={'Пароль'}  type={passwordShown ? "text" : "password"} inputError={!!errors.password?.message} {...register('password', {
+        <Input placeholder={'Пароль'} autoComplete={"current-password"} type={passwordShown ? "text" : "password"} inputError={!!errors.password?.message} {...register('password', {
           required: 'Объязательное поле',
           pattern: {
             value: /^\d+$/,
             message: 'неверный  password'
           }
-        })} /> <i style={{position: 'absolute',
-          top: '38%',
-          right: '13%', color: 'skyblue' }} onClick={togglePasswordVisiblity}>{eye}</i>
-        {errors.password?.message && <InputError>{errors.password.message}</InputError>}
-        {blEr && <InputError>{error2} { error1  } </InputError>}
+        })} /> <IEye  onClick={togglePasswordVisiblity}>{eye}</IEye>
+        {errors.password?.message && <InputError1>{errors.password.message}</InputError1>}
+        {blEr && <InputError1>{error2} { error1  } </InputError1>}
        
 
-         <LabelCheckbx>
+         <DivCheckBx >
         <Checkbox checked={value}  value={value} onChange={target => setCheckbox(!value)}   /> 
        <TextCheckBx> Запомнить меня </TextCheckBx>
-        </LabelCheckbx>
+        </DivCheckBx>
       </FormControl>
 
 
-      <Button /* {...console.log(erMes)} */ disabled={loading}>Войти</Button>
-      <TextDiv>Ещё не зарегистрированы?<NavLink style={{ color: 'cyan' }} to={'/register '}>Получить аккаунт</NavLink> </TextDiv>
+      <Button  disabled={loading}>Войти</Button>
+      <TextDiv>Ещё не зарегистрированы?  <LinkElem   exact to={'/register'}> Получить аккаунт</LinkElem></TextDiv>
     </Container>
   );
 }

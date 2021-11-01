@@ -58,7 +58,7 @@ function Home(props:any, { }) {
   
   
         <Button>Запрос профайла с апи</Button>
-        <TextDiv>Вы авторизованы! <NavLink to={'/login '}>Выйти </NavLink> </TextDiv>
+        <TextDiv>Вы авторизованы! <NavLink to={'/login'}>Выйти </NavLink> </TextDiv>
   
       </Container>
     );

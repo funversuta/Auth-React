@@ -31,7 +31,9 @@ export default class Profile extends Component<Props, State> {
       currentUser: { accessToken: "" }
     };
   }
-
+  logout() {
+    localStorage.removeItem("user");
+  }
   componentDidMount() {
     const currentUser = AuthService.getCurrentUser();
 
@@ -48,6 +50,8 @@ export default class Profile extends Component<Props, State> {
 
     return (
       <div className="container">
+       <NavLink  style={{ color: 'cyan' }} exact to={'/login'}> Выйти
+       </NavLink> 
         {(this.state.userReady) ?
           <div>
             <header className="jumbotron">
@@ -69,61 +73,10 @@ export default class Profile extends Component<Props, State> {
               {currentUser.email}
             </p>
             <strong>Authorities:</strong>
+            
             </div> : null}
       </div>
     );
   }
 }
 
-/* function Profile() {
-  const { handleSubmit, register,  formState: { errors } } = useForm<IInputs>();
-  const [loading, setLoading] = useState(false);
-  const [blEr, setBlErTrue] = useState(false);
-  const [error1, setError1] = useState(null);
-  const [error2, setError2] = useState(null);
-  
-  let [erMes] = useState('');
-  const onSubmit: SubmitHandler<IInputs> = async (data) => {
-    const formData = {
-      ...data,
-      nameid: 'Sometime'
-    };
-    setLoading(true);
-    axios.get('http://clinic.studio-mind.ru/profile').then(response => {
-      setLoading(false);
-      
-      console.log('succses')
-      console.log(response.data);
-    }).catch(error => {
-      setLoading(false);
-      if (error.response.status === 401) setError1(error.response.data.error);
-       
-      
-      else setError1(error.response.data.message) 
-       setError2(error.response.status );
-       setBlErTrue(true);
-       
-      console.log(error.response.data);
-    });
-  
-
-
-
-  return (
-    <Container>
-         {blEr && <InputError>{error2} { error1  } </InputError>}
-      <TextLabel>
-        Profile
-      </TextLabel>
-
-
-
-      <Button>Выйти</Button>
-      <TextDiv>Вы авторизованы! <NavLink to={'/login '}>Выйти </NavLink> </TextDiv>
-
-    </Container>
-  );
-}
-  
-  export default Profile;
-   */

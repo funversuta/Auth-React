@@ -2,7 +2,7 @@ import styled from "styled-components";
 import React from "react";
 
 const CheckboxContainer = styled.div`
-  margin-top: 10px;
+  
   display: inline-block;
   vertical-align: middle;
   
@@ -22,7 +22,7 @@ const HiddenCheckbox = styled.input.attrs({ type: "checkbox" })`
   height: 1px;
   margin: -1px;
   overflow: hidden;
-  padding: 0;
+  
   position: absolute;
   white-space: nowrap;
   width: 1px;
@@ -30,10 +30,10 @@ const HiddenCheckbox = styled.input.attrs({ type: "checkbox" })`
 
 const StyledCheckbox = styled.div<{ checked: boolean }>`
   display: inline-block;
-  width: 16px;
-  height: 16px;
-  background: cyan;
-  border-radius: 3px;
+  width: 14px;
+  height: 14px;
+  background: #75EBEB;
+  border-radius: 2px;
   transition: all 150ms;
 
   ${HiddenCheckbox}:focus + & {

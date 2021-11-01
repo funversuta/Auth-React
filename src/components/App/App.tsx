@@ -51,12 +51,13 @@ const App: React.FC = () => {
      <GlobalStyle />
      
       <Header />
-     <Switch>
+     
+     <Route exact path="/register" component={OrderForm} />
      <Route  path="/login" component={LoginForm} />
-     <Route  path="/register" component={OrderForm} />
+     
      <Route exact path="/Profile" component={Profile} />
      <Route  path="/home" component={Home} />
-      </Switch>
+      
 
      
     </ThemeProvider>

@@ -5,6 +5,7 @@ const theme =   {
         black: '#00000',
         red: 'red',
         SkyBlue: 'SkyBlue',
+        
     },
     breakpoints:{},
 };

@@ -4,7 +4,9 @@ export default createGlobalStyle `
 body {
   margin: 0;
   padding: 0;
- background-color: whitesmoke;
+ background-color: #E5E5E5;
+ font-family: Avenir Next;
+font-style: normal;
 }
 
 `;

@@ -1,5 +1,5 @@
 import React,{useRef, useState} from 'react';
-import { Button, Container, FormControl, Input, InputError, FirstForm,TextDiv, i, InputErrorServer} from './OrderForm.styled';
+import { Button, Container, FormControl, Input, InputError, TextDiv, InputErrorServer, LinkElem} from './OrderForm.styled';
 import { SubmitHandler,  UnpackNestedValue,  useForm } from 'react-hook-form';
 import { NavLink, Redirect } from 'react-router-dom';
 import { createForm } from '../../api/form';
@@ -8,19 +8,20 @@ import axios from 'axios';
 interface IInputs {
   email: string;
   username: string;
-  lastname: string;
-  firstname: string;
+  lastName: string;
+  firstName: string;
   password: string;
-  password_repeat: string;
+  password1: string;
 }
 
-
 function OrderForm(props:any, { }) {
-  const { handleSubmit, register, watch ,formState: { errors } } = useForm<IInputs>();
+  const { handleSubmit, register, watch , getValues ,formState: { errors } } = useForm<IInputs>({reValidateMode: 'onChange'});
+  
   const [loading, setLoading] = useState(false);
-  const password = useRef({});
-  password.current = watch("password", "");
+  
+  const password = watch('password', '')
   const [error1, setError1] = useState(null);
+  const [error, setError] = useState(null);
   const [error2, setError2] = useState(null);
   const [blEr, setBlErTrue] = useState(false);
   
@@ -33,7 +34,9 @@ function OrderForm(props:any, { }) {
     setLoading(true);
     axios.post('http://clinic.studio-mind.ru/register', data).then(response => {
       setLoading(false);
-      
+      alert(data.email + ' ' +  data.password);
+      <Redirect to="/login" />
+      props.history.push('/login');
       console.log('succses')
       console.log(response.data);
     }).catch(error => {
@@ -73,7 +76,7 @@ function OrderForm(props:any, { }) {
 
   return (
     <Container onSubmit={handleSubmit(onSubmit)}>
-      <FirstForm>
+      <FormControl>
 
         <Input placeholder={'E-mail'} inputError={!!errors.email?.message} {...register('email', {
           required: 'Объязательное поле',
@@ -83,7 +86,7 @@ function OrderForm(props:any, { }) {
           }
         })} />
         {errors.email?.message && <InputError>{errors.email.message}</InputError>}
-      </FirstForm>
+      </FormControl>
       <FormControl>
 
         <Input placeholder={'Имя пользователя'} inputError={!!errors.username?.message} {...register('username', {
@@ -97,29 +100,29 @@ function OrderForm(props:any, { }) {
       </FormControl>
       <FormControl>
 
-        <Input placeholder={'Имя'} inputError={!!errors.firstname?.message} {...register('firstname', {
+        <Input placeholder={'Имя'} inputError={!!errors.firstName?.message} {...register('firstName', {
           required: 'Объязательное поле',
           pattern: {
             value: /\S+[a-z]+.[a-z]+/,
             message: 'неверный формат '
           }
         })} />
-        {errors.firstname?.message && <InputError>{errors.firstname.message}</InputError>}
+        {errors.firstName?.message && <InputError>{errors.firstName.message}</InputError>}
       </FormControl>
       <FormControl>
 
-        <Input placeholder={'Фамилия'} inputError={!!errors.lastname?.message} {...register('lastname', {
+        <Input placeholder={'Фамилия'} inputError={!!errors.lastName?.message} {...register('lastName', {
           required: 'Объязательное поле',
           pattern: {
             value: /\S+[a-z]+.[a-z]+/,
             message: 'неверный формат '
           }
         })} />
-        {errors.lastname?.message && <InputError>{errors.lastname.message}</InputError>}
+        {errors.lastName?.message && <InputError>{errors.lastName.message}</InputError>}
       </FormControl>
       <FormControl>
 
-        <Input placeholder={'Пароль'} type="password" inputError={!!errors.password?.message} {...register('password', {
+        <Input placeholder={'Пароль'} type="password"  inputError={!!errors.password?.message} {...register('password', {
           required: 'Объязательное поле',
 
           pattern: {
@@ -131,21 +134,22 @@ function OrderForm(props:any, { }) {
       </FormControl>
       <FormControl>
 
-        <Input placeholder={'Подтверждение пароля'} type="password" inputError={!!errors.password?.message} {...register('password_repeat', {
+        <Input placeholder={'Подтверждение пароля'} id='passConfirm' type="password" inputError={!!errors.password1?.message} {...register('password1', {
           required: 'Объязательное поле',
-          validate: value =>
-            value === password.current || "The passwords do not match"
-          
+          validate: {
+            password1: value => (value === getValues().password) || "The passwords do not match"
+          }
         })} />
-        {errors.password_repeat && <InputError>{errors.password_repeat.message}</InputError>} 
+        
+        {errors.password1 && <InputError>{errors.password1.message}</InputError>} 
         </FormControl>
         {blEr && <InputErrorServer> { error1  } </InputErrorServer>}
-
+       
       <Button  disabled={loading}>Зарегистрироваться</Button>
-      <TextDiv>Уже есть аккаунт?<NavLink style={{ color: 'cyan' }} to={'/login'}> Войти</NavLink> </TextDiv>
+      <TextDiv>Уже есть аккаунт?<LinkElem  to={'/login'}> Войти</LinkElem> </TextDiv>
     </Container>
   );
 }
   
 export default OrderForm;
-  
+
